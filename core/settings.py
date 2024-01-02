@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_browser_reload",
+    "crispy_forms",
+    "crispy_bootstrap4",
     "party",
 ]
 
@@ -139,3 +141,5 @@ INTERNAL_IPS = [
 ]
 
 NPM_BIN_PATH = r"C:\Users\ajpot\AppData\Roaming\nvm\v21.2.0\npm.cmd" #os.getenv("NPM_BIN_PATH")
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
