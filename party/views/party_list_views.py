@@ -9,6 +9,7 @@ from django.views.generic import ListView
 # Project imports
 from party.models import Party
 
+
 class PartyListPage(LoginRequiredMixin, ListView):
     template_name: str = "party/party_list/page_parties_list.html"
     context_object_name: str = "parties"
@@ -16,6 +17,4 @@ class PartyListPage(LoginRequiredMixin, ListView):
     def get_queryset(self) -> QuerySet:
         return Party.objects.filter(
             organizer=self.request.user, party_date__gte=dt.datetime.today()
-        ).order_by(
-            "party_date"
-        )
+        ).order_by("party_date")

@@ -1,8 +1,8 @@
 # Third-party imports
 from crispy_forms.templatetags.crispy_forms_filters import as_crispy_field
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 
 from party.forms import PartyForm
 from party.models import Party
@@ -19,17 +19,22 @@ def page_new_party(request: HttpRequest) -> HttpResponse:
             party.organizer = request.user
             party.save()
             return redirect(to="page_single_party", party_uuid=party.uuid)
-    
-    return render(request=request, template_name="party/new_party/page_new_party.html", 
-                  context={
-                      "form": form,
-                  })
+
+    return render(
+        request=request,
+        template_name="party/new_party/page_new_party.html",
+        context={
+            "form": form,
+        },
+    )
+
 
 @login_required
 def partial_check_party_date(request: HttpRequest) -> HttpResponse:
     form: PartyForm = PartyForm(data=request.GET)
 
     return HttpResponse(content=as_crispy_field(field=form["party_date"]))
+
 
 @login_required
 def partial_check_invitation(request: HttpRequest) -> HttpResponse:
