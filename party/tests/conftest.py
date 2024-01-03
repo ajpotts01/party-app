@@ -4,16 +4,17 @@ from typing import Callable
 
 # Third-party imports
 import pytest
-from django.test import Client
 from django.contrib.auth.models import User
+from django.test import Client
 
 # Project imports
-from party.models import Party, Gift, Guest, CustomUser
+from party.models import CustomUser, Gift, Guest, Party
 
 
 @pytest.fixture(scope="function")
 def create_user(django_user_model: User) -> User:
     return django_user_model.objects.create_user(username="testuser", password="123456")
+
 
 @pytest.fixture(scope="session")
 def authenticated_client() -> Callable:
@@ -22,8 +23,9 @@ def authenticated_client() -> Callable:
         client.force_login(user=test_user)
 
         return client
-    
+
     return _authenticated_client
+
 
 @pytest.fixture(scope="session")
 def create_party() -> Callable:
@@ -34,8 +36,9 @@ def create_party() -> Callable:
             party_time=kwargs.get("party_time", dt.datetime.now()),
             venue=kwargs.get("venue", "Amazing castle"),
         )
-    
+
     return _create_party
+
 
 @pytest.fixture(scope="session")
 def create_gift() -> Callable:
@@ -46,8 +49,9 @@ def create_gift() -> Callable:
             link=kwargs.get("link", "https://testlink.com"),
             party=party,
         )
-    
+
     return _create_gift
+
 
 @pytest.fixture(scope="session")
 def create_guest() -> Callable:
@@ -57,5 +61,5 @@ def create_guest() -> Callable:
             attending=kwargs.get("attending", True),
             party=party,
         )
-    
+
     return _create_guest

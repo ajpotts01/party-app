@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path(route="__reload__/", view=include(arg="django_browser_reload.urls")),
     path(route="", view=include(arg="party.urls")),
 ]

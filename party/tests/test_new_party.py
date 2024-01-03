@@ -11,6 +11,7 @@ from django.urls import reverse
 from party.forms import DATE_PAST_ERROR_MESSAGE, INVITATION_ERROR_MESSAGE
 from party.models import Party
 
+
 @pytest.mark.django_db
 def test_create_party(
     authenticated_client: Client,
@@ -29,8 +30,9 @@ def test_create_party(
     assert response.status_code == 302
     assert Party.objects.count() == 1
 
+
 def test_create_party_invitation_too_short_returns_error(
-    authenticated_client: Client, 
+    authenticated_client: Client,
     create_user: Callable,
 ):
     url: str = reverse(viewname="page_new_party")
@@ -46,6 +48,7 @@ def test_create_party_invitation_too_short_returns_error(
     assert not response.context["form"].is_valid()
     assert INVITATION_ERROR_MESSAGE in response.content.decode()
     assert Party.objects.count() == 0
+
 
 def test_create_party_past_date_returns_error(
     authenticated_client: Client,
@@ -65,6 +68,7 @@ def test_create_party_past_date_returns_error(
     assert DATE_PAST_ERROR_MESSAGE in response.content.decode()
     assert Party.objects.count() == 0
 
+
 def test_partial_party_check_date(
     authenticated_client: Client,
     create_user: Callable,
@@ -79,6 +83,7 @@ def test_partial_party_check_date(
     assert response.status_code == 200
     assert 'id="id_party_date"' in response.content.decode()
     assert DATE_PAST_ERROR_MESSAGE in response.content.decode()
+
 
 def test_partial_check_invitation(
     authenticated_client: Client,

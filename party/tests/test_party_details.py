@@ -28,10 +28,11 @@ def test_party_detail_page_returns_whole_page_with_single_party(
     assert response.status_code == 200
     assert response.context_data["party"] == party
 
+
 @pytest.mark.django_db
 def test_party_detail_partial_get_method_returns_a_form_prefilled_with_party_details(
-    authenticated_client: Client, 
-    create_user: Callable, 
+    authenticated_client: Client,
+    create_user: Callable,
     create_party: Callable,
 ):
     party: Party = create_party(organizer=create_user)
@@ -43,11 +44,10 @@ def test_party_detail_partial_get_method_returns_a_form_prefilled_with_party_det
     assert "form" in response.context
     assert response.context["form"].instance == party
 
+
 @pytest.mark.django_db
 def test_party_detail_partial_put_method_returns_updated_party_details(
-    authenticated_client: Client, 
-    create_user: Callable, 
-    create_party: Callable
+    authenticated_client: Client, create_user: Callable, create_party: Callable
 ):
     party: Party = create_party(organizer=create_user)
 
@@ -62,7 +62,9 @@ def test_party_detail_partial_put_method_returns_updated_party_details(
         }
     )
 
-    response: HttpResponse = authenticated_client(create_user).put(url, content_type="application/json", data=data)
+    response: HttpResponse = authenticated_client(create_user).put(
+        url, content_type="application/json", data=data
+    )
 
     assert response.status_code == 200
     assert Party.objects.get(uuid=party.uuid).party_date == dt.date(2025, 6, 6)

@@ -18,10 +18,13 @@ def test_party_list_page_returns_list_of_users_future_parties(
     authenticated_client: Client,
     create_user: Callable,
     create_party: Callable,
-    django_user_model: User):
+    django_user_model: User,
+):
     today: dt.date = dt.date.today()
     user: User = create_user
-    other_user: User = django_user_model.objects.create_user(username="other_user", password="whatever")
+    other_user: User = django_user_model.objects.create_user(
+        username="other_user", password="whatever"
+    )
 
     valid_party_1: Party = create_party(
         organizer=user, party_date=today, venue="Venue 1"
@@ -33,15 +36,10 @@ def test_party_list_page_returns_list_of_users_future_parties(
         venue="Venue 2",
     )
 
-    create_party(
-        organizer=other_user,
-        venue="Venue 3"
-    )
+    create_party(organizer=other_user, venue="Venue 3")
 
     create_party(
-        organizer=user,
-        party_date=today - dt.timedelta(days=10),
-        venue="Venue 4"
+        organizer=user, party_date=today - dt.timedelta(days=10), venue="Venue 4"
     )
 
     url: str = reverse(viewname="page_party_list")
