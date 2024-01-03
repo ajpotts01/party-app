@@ -51,6 +51,11 @@ gift_registry_urlpatterns: list[URLPattern] = [
         view=views.GiftUpdateFormPartial.as_view(),
         name="partial_gift_update",
     ),
+    path(
+        route="gifts/<uuid:gift_uuid>/delete/",
+        view=views.delete_gift_partial,
+        name="partial_gift_delete",
+    ),
 ]
 
 urlpatterns: list[URLPattern] = (
