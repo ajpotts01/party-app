@@ -14,9 +14,20 @@
       {% endif %}
     </div>
     <div class="table-row-group">
-      {% for gift in gifts %} 
-      {% include 'party/gift_registry/partial_gift_detail.html' %} {% endfor %}
+      {% for gift in gifts %} {% include
+      'party/gift_registry/partial_gift_detail.html' %} {% endfor %}
     </div>
+  </div>
+  <div class="bg-gray-50 py-4 px-6 text-center">
+    <button
+      type="button"
+      class="uppercase text-sm text-gray-700"
+      hx-target="#gift-registry .table-row-group"
+      hx-swap="beforeend"
+      hx-get="{% url 'partial_new_gift' party.uuid %}"
+    >
+      Add gift
+    </button>
   </div>
 </div>
 {% endblock %}
