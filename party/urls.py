@@ -13,4 +13,12 @@ party_detail_urlpatterns: list[URLPattern] = [
     path(route="party/<uuid:party_uuid>/details/", view=views.PartyDetailPartial.as_view(), name="partial_party_detail"),
 ]
 
-urlpatterns: list[URLPattern] = list_parties_urlpatterns + party_detail_urlpatterns
+new_party_urlpatterns: list[URLPattern] = [
+    path(route="party/new/", view=views.page_new_party, name="page_new_party"),
+    path(route="party/new/check-date/", view=views.partial_check_party_date, name="partial_check_party_date"),
+    path(route="party/new/check-invitation/", view=views.partial_check_invitation, name="partial_check_invitation"),
+]
+
+urlpatterns: list[URLPattern] = (
+    list_parties_urlpatterns + party_detail_urlpatterns + new_party_urlpatterns
+)
