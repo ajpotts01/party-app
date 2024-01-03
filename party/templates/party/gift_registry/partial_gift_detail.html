@@ -15,5 +15,16 @@
       Edit
     </button>
   </div>
+  <div class="table-cell py-4 px-6">
+    <button
+      type="button"
+      hx-target="closest .table-row"
+      hx-swap="outerHTML"
+      hx-confirm="Are you sure?"
+      hx-delete="{% url 'partial_gift_delete' gift.uuid %}"
+    >
+      Delete
+    </button>
+  </div>
   {% endif %}
 </div>
