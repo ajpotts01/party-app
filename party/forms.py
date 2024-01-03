@@ -2,11 +2,12 @@
 import datetime as dt
 
 # Third-party imports
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.urls import reverse_lazy
 
 # Project imports
-from .models import Party
+from .models import Party, Gift
 
 INVITATION_ERROR_MESSAGE = "You really should write an invitation."
 DATE_PAST_ERROR_MESSAGE = "You chose a date in the past."
@@ -50,3 +51,13 @@ class PartyForm(forms.ModelForm):
             raise forms.ValidationError(message=DATE_PAST_ERROR_MESSAGE)
         
         return party_date
+    
+class GiftForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
+    class Meta:
+        model: type = Gift
+        fields: tuple = ("gift", "price", "link")

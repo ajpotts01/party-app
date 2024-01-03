@@ -1,3 +1,4 @@
+black==23.3.0
 crispy-bootstrap4==2023.1
 Django==4.2.7
 django-crispy-forms==2.1
