@@ -79,6 +79,11 @@ guest_list_patterns: list[URLPattern] = [
         view=views.mark_not_attending_partial,
         name="partial_mark_not_attending",
     ),
+    path(
+        route="party/<uuid:party_uuid>/guests/filter/",
+        view=views.filter_guests_partial,
+        name="partial_filter_guests",
+    ),
 ]
 
 urlpatterns: list[URLPattern] = (
