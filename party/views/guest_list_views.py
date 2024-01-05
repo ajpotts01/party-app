@@ -60,3 +60,60 @@ def mark_not_attending_partial(request: HttpRequest, party_uuid: uuid.UUID):
         template_name="party/guest_list/partial_guest_list.html",
         context={"guests": guests},
     )
+
+
+def filter_attending(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(party_id=party_id, attending=True)
+
+
+def filter_not_attending(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(party_id=party_id, attending=False)
+
+
+def filter_attending_and_search(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(
+        party_id=party_id, attending=True, name__icontains=kwargs.get("search_text")
+    )
+
+
+def filter_not_attending_and_search(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(
+        party_id=party_id, attending=False, name__icontains=kwargs.get("search_text")
+    )
+
+
+def filter_search(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(
+        party_id=party_id, name__icontains=kwargs.get("search_text")
+    )
+
+
+def filter_default(party_id: uuid.UUID, **kwargs) -> QuerySet:
+    return Guest.objects.filter(party_id=party_id)
+
+
+QUERY_FILTERS = {
+    ("attending", False): filter_attending,
+    ("not_attending", False): filter_not_attending,
+    ("attending", True): filter_attending_and_search,
+    ("not_attending", True): filter_not_attending_and_search,
+    ("all", True): filter_search,
+}
+
+
+@require_http_methods(["POST"])
+def filter_guests_partial(request: HttpRequest, party_uuid: uuid.UUID):
+    attending_filter: str = request.POST.get("attending_filter")
+    search_text: str = request.POST.get("guest_search")
+
+    query_filter: QuerySet = QUERY_FILTERS.get(
+        (attending_filter, bool(search_text)), filter_default
+    )
+
+    guests: QuerySet = query_filter(party_id=party_uuid, search_text=search_text)
+
+    return render(
+        request=request,
+        template_name="party/guest_list/partial_guest_list.html",
+        context={"guests": guests},
+    )
