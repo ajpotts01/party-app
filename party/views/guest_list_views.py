@@ -41,8 +41,8 @@ def mark_attending_partial(request: HttpRequest, party_uuid: uuid.UUID) -> HttpR
 
     return render(
         request=request,
-        template_name="party/guest_list/partial_guest_list.html",
-        context={"guests": guests},
+        template_name="party/guest_list/partial_guest_filter_and_list.html",
+        context={"guests": guests, "party_id": party_uuid},
     )
 
 
@@ -58,8 +58,8 @@ def mark_not_attending_partial(request: HttpRequest, party_uuid: uuid.UUID):
 
     return render(
         request=request,
-        template_name="party/guest_list/partial_guest_list.html",
-        context={"guests": guests},
+        template_name="party/guest_list/partial_guest_filter_and_list.html",
+        context={"guests": guests, "party_id": party_uuid},
     )
 
 

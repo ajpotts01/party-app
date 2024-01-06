@@ -22,76 +22,14 @@
 </div>
 
 <div id="guest_list_container">
-  <div class="w-2/5 bg-white shadow-md m-auto">
-    <form
-      hx-post="{% url 'partial_filter_guests' party_id %}"
-      hx-trigger="keyup delay:500ms from:#guest_search, search, change from:#attending_filter"
-      hx-target="#guests"
-    >
-      <div class="bg-gray-50 p-4 grid grid-cols-2">
-        <div>
-          <input
-            type="search"
-            class="p-2 bg-transparent border-x-transparent border-t-transparent border-b-gray-400 focus:border-x-transparent focus:border-t-transparent focus:border-b-gray-600 focus:ring-0"
-            placeholder="Search guests"
-            id="guest_search"
-            name="guest_search"
-          />
-        </div>
+  <div class="w-2/5 min-w-fit bg-white shadow-md m-auto">
+    {% include 'party/guest_list/partial_guest_filter.html' %}
 
-        <div class="text-right" id="attending_filter">
-          <input
-            type="radio"
-            id="all"
-            name="attending_filter"
-            value="all"
-            checked
-          />
-          <label for="all" class="uppercase text-xs text-gray-600 pr-2"
-            >All</label
-          >
-
-          <input
-            type="radio"
-            id="attending"
-            name="attending_filter"
-            value="attending"
-          />
-          <label for="attending" class="uppercase text-xs text-gray-600 pr-2"
-            >Attending</label
-          >
-
-          <input
-            type="radio"
-            id="not_attending"
-            name="attending_filter"
-            value="not_attending"
-          />
-          <label
-            for="not_attending"
-            class="uppercase text-xs text-gray-600 pr-2"
-            >Not attending</label
-          >
-        </div>
+    <form class="table text-left text-gray-500 table-fixed min-w-fit p-8">
+      <div class="table-row-group" id="guests">
+        {% include 'party/guest_list/partial_guest_list.html' %}
       </div>
     </form>
-
-    <div x-data="{ selected_all: false }">
-      <div class="pl-14 py-1 text-gray-500 border-b-gray-200 border-b">
-        <input type="checkbox" x-model="selected_all" class="border-gray-400" />
-        <span
-          class="p-1 text-xs"
-          x-text="selected_all ? 'Unselect all' : 'Select all'"
-        ></span>
-      </div>
-      <form
-        class="table text-left text-gray-500 table-fixed min-w-fit p-8 pt-0"
-      >
-        <div class="table-row-group" id="guests">
-          {% include 'party/guest_list/partial_guest_list.html' %}
-        </div>
-      </form>
-    </div>
 
     <div
       hx-include="#guests"

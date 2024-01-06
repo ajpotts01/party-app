@@ -57,6 +57,7 @@ def test_mark_guest_attending(
 
     assert response.status_code == 200
     assert len(list(response.context["guests"])) == 2
+    assert response.context["party_id"] == party.uuid
 
 
 def test_mark_guest_not_attending(
@@ -81,6 +82,7 @@ def test_mark_guest_not_attending(
 
     assert response.status_code == 200
     assert len(list(response.context["guests"])) == 2
+    assert response.context["party_id"] == party.uuid
 
 
 @pytest.mark.parametrize(
