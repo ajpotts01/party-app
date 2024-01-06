@@ -1,16 +1,17 @@
 # Project imports
+from .general_views import LoginPage
 from .gift_registry_views import (
+    GiftCreateFormPartial,
     GiftDetailPartial,
     GiftRegistryPage,
     GiftUpdateFormPartial,
     delete_gift_partial,
-    GiftCreateFormPartial,
 )
 from .guest_list_views import (
     GuestListPage,
+    filter_guests_partial,
     mark_attending_partial,
     mark_not_attending_partial,
-    filter_guests_partial,
 )
 from .new_party_views import (
     page_new_party,
@@ -36,4 +37,5 @@ __all__ = [
     "mark_attending_partial",
     "mark_not_attending_partial",
     "filter_guests_partial",
+    "LoginPage",
 ]
