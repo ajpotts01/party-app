@@ -24,6 +24,7 @@
       hx-target="#gift-registry .table-row-group"
       hx-swap="beforeend"
       hx-get="{% url 'partial_new_gift' party.uuid %}"
+      data-cy="add-gift-button"
     >
       Add gift
     </button>

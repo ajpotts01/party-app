@@ -1,3 +1,7 @@
+# Cypress
+node_modules/
+cypress.env.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
