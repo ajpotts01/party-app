@@ -11,6 +11,7 @@
       hx-get="{% url 'partial_gift_update' gift.uuid %}"
       hx-target="closest .table-row"
       hx-swap="outerHTML"
+      data-cy="edit-gift-button"
     >
       Edit
     </button>
@@ -22,6 +23,7 @@
       hx-swap="outerHTML"
       hx-confirm="Are you sure?"
       hx-delete="{% url 'partial_gift_delete' gift.uuid %}"
+      data-cy="delete-gift-button"
     >
       Delete
     </button>
