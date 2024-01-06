@@ -86,8 +86,13 @@ guest_list_patterns: list[URLPattern] = [
     ),
 ]
 
+general_patterns: list[URLPattern] = [
+    path(route="/login/", view=views.LoginPage.as_view(), name="party_login"),
+]
+
 urlpatterns: list[URLPattern] = (
-    list_parties_urlpatterns
+    general_patterns
+    + list_parties_urlpatterns
     + party_detail_urlpatterns
     + new_party_urlpatterns
     + gift_registry_urlpatterns
